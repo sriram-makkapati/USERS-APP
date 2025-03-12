@@ -12,7 +12,7 @@ const AddRoleForm = () => {
   useEffect(() => {
     const fetchDatasets = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:5000/distinctDatasets');
+        const response = await axios.get('apis.distinctDatasets_api');
         setDatasets(response.data);
       } catch (error) {
         console.error('Failed to fetch datasets:', error);
@@ -32,7 +32,7 @@ const AddRoleForm = () => {
     setError(null);
     setSuccess(true);
     try {
-      await axios.post('http://127.0.0.1:5000/api/role', { 
+      await axios.post('apis.api/role_api', { 
         ROLE_NAME: roleName,
         DATASET_ACCESS: datasetAccess 
       });

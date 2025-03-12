@@ -51,7 +51,7 @@ const EditUserRoles = () => {
 
   const fetchRoles = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:5000/user_roles');
+      const response = await axios.get('apis.user_roles_api');
       console.log('Fetched Roles:', response.data);
       const fetchedRoles = response.data.map((role) => ({
         roleId: role.ROLE_ID,
@@ -68,7 +68,7 @@ const EditUserRoles = () => {
 
   const fetchRoleOptions = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:5000/api/roles');
+      const response = await axios.get('apis.api/roles_api');
       console.log('Fetched Role Options:', response.data);
       setRoleOptions(response.data || []);
     } catch (error) {
@@ -99,7 +99,8 @@ const EditUserRoles = () => {
       const payload = { ROLE_NAME: roleName, DATASET_ACCESS: datasetAccess };
       console.log('Payload:', payload);
 
-      await axios.put(`http://127.0.0.1:5000/api/roles/${roleId}`, payload, {
+      await axios.put(`apis.api/roles/${roleId}_api`, 
+        payload, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -127,7 +128,7 @@ const EditUserRoles = () => {
 
   const handleDeleteRole = async (roleId) => {
     try {
-      await axios.delete(`http://127.0.0.1:5000/api/roles/${roleId}`);
+      await axios.delete(`apis.api/roles/${roleId}_api`);
       setRoles(roles.filter(role => role.roleId !== roleId));
       setError(null);
       setSuccess(true);

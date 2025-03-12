@@ -17,7 +17,7 @@ const EditUserRole = () => {
     const fetchUserRoles = async () => {
       if (username) {
         try {
-          const response = await axios.get(`http://127.0.0.1:5000/api/users/${username}/roles`);
+          const response = await axios.get(`apis.api/users/${username}/roles_api`);
           setRoles(response.data);
           setIsFetching(true);
           setError(null);
@@ -33,7 +33,7 @@ const EditUserRole = () => {
   const handleUpdateRole = async (event) => {
     event.preventDefault();
     try {
-      await axios.put(`http://127.0.0.1:5000/api/roles/${roleId}`, {
+      await axios.put(`apis.api/roles/${roleId}_api`, {
         ROLE_NAME: roleName,
         DATASET_ACCESS: datasetAccess,
       });
@@ -49,7 +49,7 @@ const EditUserRole = () => {
 
   const handleDeleteRole = async () => {
     try {
-      await axios.delete(`http://127.0.0.1:5000/api/roles/${roleId}`);
+      await axios.delete(`apis.api/roles/${roleId}_api`);
       setRoles(roles.filter(role => role.ROLE_ID !== roleId));
       setSuccess(true);
       setError(null);

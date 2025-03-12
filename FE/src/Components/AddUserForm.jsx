@@ -15,7 +15,7 @@ const AddUserForm = () => {
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:5000/user_roles');
+        const response = await axios.get('apis.user_roles_api');
         setRoles(response.data);
       } catch (error) {
         setError('Failed to fetch roles');
@@ -33,7 +33,7 @@ const AddUserForm = () => {
     }
     setError(null);
     try {
-      await axios.post('http://127.0.0.1:5000/add_user', { 
+      await axios.post('apis.add_user_api', { 
         USER_NAME: userName.split('@zensar.com')[0],
         PASSWORD: password,
         ROLE_ID: roleId 

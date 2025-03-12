@@ -63,7 +63,7 @@ const UserRolesTable = ({ endpoint }) => {
     <Paper css={styles.paperContainer}>
       <Box>
         <Typography variant="h5" gutterBottom align="center">
-          {endpoint === 'http://127.0.0.1:5000/api/users' ? 'Users' : 'Roles'}
+          {endpoint === 'apis.api/users_api' ? 'Users' : 'Roles'}
         </Typography>
         {error && (
           <Box sx={{ mt: 2 }}>
@@ -73,7 +73,7 @@ const UserRolesTable = ({ endpoint }) => {
         <Table css={styles.table}>
           <TableHead>
             <TableRow>
-              {endpoint === 'http://127.0.0.1:5000/api/users' ? (
+              {endpoint === 'apis.api/users_api' ? (
                 <>
                   <TableCell css={styles.tableHeaderCell}>User ID</TableCell>
                   <TableCell css={styles.tableHeaderCell}>Username</TableCell>
@@ -91,7 +91,7 @@ const UserRolesTable = ({ endpoint }) => {
           <TableBody>
             {data.map((item, index) => (
               <TableRow key={index}>
-                {endpoint === 'http://127.0.0.1:5000/api/users' ? (
+                {endpoint === 'apis.api/users_api' ? (
                   <>
                     <TableCell css={styles.tableCell}>{item.USER_ID}</TableCell>
                     <TableCell css={styles.tableCell}>{item.USER_NAME}</TableCell>

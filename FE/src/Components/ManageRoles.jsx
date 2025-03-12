@@ -52,7 +52,7 @@ const ManageRoles = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:5000/api/users');
+      const response = await axios.get('apis.api/users_api');
       console.log('Fetched Users:', response.data);
       const fetchedUsers = response.data.map((user) => ({
         USER_ID: user.USER_ID,
@@ -68,7 +68,7 @@ const ManageRoles = () => {
 
   const fetchRolesOptions = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:5000/api/roles');
+      const response = await axios.get('apis.api/roles_api');
       console.log('Fetched Roles Options:', response.data);
       setRolesOptions(response.data || []);
     } catch (error) {
@@ -107,7 +107,8 @@ const ManageRoles = () => {
       const payload = { ROLE_ID };
       console.log('Payload:', payload);
 
-      const response = await axios.put(`http://127.0.0.1:5000/update_role/${USER_NAME}`, payload, {
+      const response = await axios.put(`apis.update_role/${USER_NAME}_api`,
+        payload, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -137,7 +138,7 @@ const ManageRoles = () => {
 
   const handleDeleteUser = async (username) => {
     try {
-      await axios.delete(`http://127.0.0.1:5000/delete_user/${username}`);
+      await axios.delete(`apis.delete_user/${username}_api`);
       setUsers(users.filter(user => user.USER_NAME !== username));
       setError(null);
       setSuccess(true);

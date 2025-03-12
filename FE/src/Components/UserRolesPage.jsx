@@ -20,8 +20,8 @@ const UserRolesPage = () => {
           value={selectedTable}
           onChange={handleTableChange}
         >
-          <MenuItem value="http://127.0.0.1:5000/api/users">Get All Users</MenuItem>
-          <MenuItem value="http://127.0.0.1:5000/api/roles">Get All Roles</MenuItem>
+          <MenuItem value="apis.api/users_api">Get All Users</MenuItem>
+          <MenuItem value="apis.api/roles_api">Get All Roles</MenuItem>
         </Select>
       </FormControl>
       {selectedTable && <UserRolesTable endpoint={selectedTable} />}
