@@ -1,0 +1,25 @@
+# React
+node_modules/
+build/
+.env
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Flask
+*.pyc
+__pycache__/
+instance/
+.webassets-cache
+.env
+venv/
+env/
+ENV/
+.venv/
+.ENV/
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+dist/
+build/

@@ -1,0 +1,276 @@
+swagger: '2.0'
+info:
+  title: Data Buddy API
+  description: API documentation for the Data Buddy application.
+  version: "1.0.0"
+host: 127.0.0.1:5000
+schemes:
+  - http
+paths:
+  /add_user:
+    post:
+      summary: Add a new user
+      description: Adds a new user to the system.
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              USER_NAME:
+                type: string
+              PASSWORD:
+                type: string
+              ROLE_ID:
+                type: integer
+      responses:
+        201:
+          description: User added successfully
+        400:
+          description: Invalid input
+        409:
+          description: User already exists
+        500:
+          description: Internal server error
+
+  /api/role:
+    post:
+      summary: Add a new role
+      description: Adds a new role to the system.
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              ROLE_NAME:
+                type: string
+              DATASET_ACCESS:
+                type: string
+      responses:
+        201:
+          description: Role added successfully
+        400:
+          description: Invalid input
+        409:
+          description: Role already exists
+        500:
+          description: Internal server error
+
+  /user_roles:
+    get:
+      summary: Get all user roles
+      description: Retrieves all roles from the system.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successfully retrieved roles
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                ROLE_ID:
+                  type: integer
+                ROLE_NAME:
+                  type: string
+                DATASET_ACCESS:
+                  type: string
+        500:
+          description: Internal server error
+
+  /update_role/{username}:
+    put:
+      summary: Update a user's role
+      description: Updates the ROLE_ID of a specific user identified by username.
+      consumes:
+        - application/json
+      parameters:
+        - name: username
+          in: path
+          required: true
+          type: string
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              ROLE_ID:
+                type: integer
+      responses:
+        200:
+          description: Role updated successfully
+        400:
+          description: Invalid input
+        404:
+          description: User not found
+        500:
+          description: Internal server error
+
+  /api/users/{username}/roles:
+    get:
+      summary: Get roles by username
+      description: Retrieves roles for a specific user by their username.
+      produces:
+        - application/json
+      parameters:
+        - name: username
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Successfully retrieved roles
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                ROLE_ID:
+                  type: integer
+        500:
+          description: Internal server error
+
+  /api/roles/{roleId}:
+    put:
+      summary: Update a role by role ID
+      description: Updates the details of a role (ROLE_NAME and DATASET_ACCESS) by ROLE_ID.
+      consumes:
+        - application/json
+      parameters:
+        - name: roleId
+          in: path
+          required: true
+          type: string
+          description: The ID of the role to update
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              ROLE_NAME:
+                type: string
+                description: The new name of the role
+              DATASET_ACCESS:
+                type: string
+                description: The updated dataset access level of the role
+      responses:
+        200:
+          description: Role updated successfully
+        400:
+          description: Invalid input
+        404:
+          description: Role not found
+        500:
+          description: Internal server error
+
+    delete:
+      summary: Delete a role
+      description: Deletes a specific role identified by ROLE_ID.
+      parameters:
+        - name: roleId
+          in: path
+          required: true
+          type: string
+          description: The ID of the role to delete
+      responses:
+        200:
+          description: Role deleted successfully
+        404:
+          description: Role not found
+        500:
+          description: Internal server error
+
+  /delete_user/{username}:
+    delete:
+      summary: Delete a user
+      description: Deletes a specific user identified by their USER_NAME.
+      parameters:
+        - name: username
+          in: path
+          required: true
+          type: string
+          description: The username of the user to delete
+      responses:
+        200:
+          description: User deleted successfully
+        404:
+          description: User not found
+        500:
+          description: Internal server error
+
+  /api/users:
+    get:
+      summary: Get all users
+      description: Retrieves all users from the system.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successfully retrieved users
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                USER_ID:
+                  type: integer
+                USER_NAME:
+                  type: string
+                PASSWORD:
+                  type: string
+                ROLE_ID:
+                  type: integer
+        500:
+          description: Internal server error
+
+  /api/roles:
+    get:
+      summary: Get all roles
+      description: Retrieves all roles from the system.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successfully retrieved roles
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                ROLE_ID:
+                  type: integer
+                ROLE_NAME:
+                  type: string
+                DATASET_ACCESS:
+                  type: string
+        500:
+          description: Internal server error
+  /distinctDatasets:
+    get:
+      summary: Get distinct domain details
+      description: Retrieves a list of distinct DOMAIN_DETAILS from the METADATA_ENRICHMENT_V2 table.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successfully retrieved distinct domain details
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                DOMAIN_DETAILS:
+                  type: string
+        500:
+          description: Internal server error
+        
