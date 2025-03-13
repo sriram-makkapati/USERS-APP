@@ -4,6 +4,7 @@ import { Button, Box, Typography, Paper, Alert, Table, TableHead, TableRow, Tabl
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { css } from '@emotion/react';
+import apis from './apis'; 
 
 const styles = {
   selectMenuItem: css`
@@ -51,7 +52,7 @@ const EditUserRoles = () => {
 
   const fetchRoles = async () => {
     try {
-      const response = await axios.get('apis.user_roles_api');
+      const response = await axios.get(apis.userRoles);
       console.log('Fetched Roles:', response.data);
       const fetchedRoles = response.data.map((role) => ({
         roleId: role.ROLE_ID,
@@ -68,7 +69,7 @@ const EditUserRoles = () => {
 
   const fetchRoleOptions = async () => {
     try {
-      const response = await axios.get('apis.api/roles_api');
+      const response = await axios.get(apis.roles);
       console.log('Fetched Role Options:', response.data);
       setRoleOptions(response.data || []);
     } catch (error) {
@@ -83,7 +84,6 @@ const EditUserRoles = () => {
     setRoles(updatedRoles);
     setSelectedRole({ ...updatedRoles[index] }); // Ensure selectedRole is updated correctly
   };
-
   const handleSaveRole = async () => {
     try {
       if (!selectedRole) {
@@ -99,8 +99,7 @@ const EditUserRoles = () => {
       const payload = { ROLE_NAME: roleName, DATASET_ACCESS: datasetAccess };
       console.log('Payload:', payload);
 
-      await axios.put(`apis.api/roles/${roleId}_api`, 
-        payload, {
+      await axios.put(`${apis.roleId}/${roleId}`, payload, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -128,7 +127,7 @@ const EditUserRoles = () => {
 
   const handleDeleteRole = async (roleId) => {
     try {
-      await axios.delete(`apis.api/roles/${roleId}_api`);
+      await axios.delete(`${apis.roleId}/${roleId}`);
       setRoles(roles.filter(role => role.roleId !== roleId));
       setError(null);
       setSuccess(true);
@@ -154,6 +153,7 @@ const EditUserRoles = () => {
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
+
   return (
     <Paper elevation={3} sx={{ p: 4, mt: 4, maxWidth: 800, mx: 'auto' }}>
       <Typography variant="h5" gutterBottom align="center">Edit Roles</Typography>

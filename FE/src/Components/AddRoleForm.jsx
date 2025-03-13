@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box, Typography, Paper, Alert, MenuItem, Select, FormControl, InputLabel, Chip } from '@mui/material';
 import axios from 'axios';
+import apis from './apis'; 
 
 const AddRoleForm = () => {
   const [roleName, setRoleName] = useState('');
@@ -12,7 +13,7 @@ const AddRoleForm = () => {
   useEffect(() => {
     const fetchDatasets = async () => {
       try {
-        const response = await axios.get('apis.distinctDatasets_api');
+        const response = await axios.get(apis.distinctDatasets);
         setDatasets(response.data);
       } catch (error) {
         console.error('Failed to fetch datasets:', error);
@@ -32,17 +33,18 @@ const AddRoleForm = () => {
     setError(null);
     setSuccess(true);
     try {
-      await axios.post('apis.api/role_api', { 
+      await axios.post(apis.role, { 
         ROLE_NAME: roleName,
         DATASET_ACCESS: datasetAccess 
       });
+      setSuccess(true);
+      setRoleName('');
+      setDatasetAccess([]);
     } catch (error) {
       console.error('Failed to add role:', error);
       setError('Failed to add role. Please try again.');
       setSuccess(false);
     }
-    setRoleName('');
-    setDatasetAccess([]);
   };
 
   return (

@@ -4,6 +4,7 @@ import { Button, Box, Typography, Paper, Alert, Table, TableHead, TableRow, Tabl
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { css } from '@emotion/react';
+import apis from './apis'; 
 
 const styles = {
   selectMenuItem: css`
@@ -52,7 +53,7 @@ const ManageRoles = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('apis.api/users_api');
+      const response = await axios.get(apis.users);
       console.log('Fetched Users:', response.data);
       const fetchedUsers = response.data.map((user) => ({
         USER_ID: user.USER_ID,
@@ -68,7 +69,7 @@ const ManageRoles = () => {
 
   const fetchRolesOptions = async () => {
     try {
-      const response = await axios.get('apis.api/roles_api');
+      const response = await axios.get(apis.roles);
       console.log('Fetched Roles Options:', response.data);
       setRolesOptions(response.data || []);
     } catch (error) {
@@ -107,8 +108,7 @@ const ManageRoles = () => {
       const payload = { ROLE_ID };
       console.log('Payload:', payload);
 
-      const response = await axios.put(`apis.update_role/${USER_NAME}_api`,
-        payload, {
+      const response = await axios.put(apis.updateRole(USER_NAME), payload, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -138,7 +138,7 @@ const ManageRoles = () => {
 
   const handleDeleteUser = async (username) => {
     try {
-      await axios.delete(`apis.delete_user/${username}_api`);
+      await axios.delete(apis.deleteUser(username));
       setUsers(users.filter(user => user.USER_NAME !== username));
       setError(null);
       setSuccess(true);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Button, MenuItem, Select, FormControl, InputLabel, Box, Typography, Paper, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import apis from './apis'; // Import the APIs
 
 const AddUserForm = () => {
   const [userName, setUserName] = useState('');
@@ -15,7 +16,7 @@ const AddUserForm = () => {
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await axios.get('apis.user_roles_api');
+        const response = await axios.get(apis.userRoles);
         setRoles(response.data);
       } catch (error) {
         setError('Failed to fetch roles');
@@ -33,7 +34,7 @@ const AddUserForm = () => {
     }
     setError(null);
     try {
-      await axios.post('apis.add_user_api', { 
+      await axios.post(apis.addUser, { 
         USER_NAME: userName.split('@zensar.com')[0],
         PASSWORD: password,
         ROLE_ID: roleId 

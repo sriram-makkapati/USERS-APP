@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Box, Typography, Paper, Table, TableHead, TableRow, TableCell, TableBody, Alert } from '@mui/material';
 import { css } from '@emotion/react';
+import apis from './apis'; 
 
 const styles = {
   paperContainer: css`
@@ -63,7 +64,7 @@ const UserRolesTable = ({ endpoint }) => {
     <Paper css={styles.paperContainer}>
       <Box>
         <Typography variant="h5" gutterBottom align="center">
-          {endpoint === 'apis.api/users_api' ? 'Users' : 'Roles'}
+          {endpoint === apis.users ? 'Users' : 'Roles'}
         </Typography>
         {error && (
           <Box sx={{ mt: 2 }}>
@@ -73,7 +74,7 @@ const UserRolesTable = ({ endpoint }) => {
         <Table css={styles.table}>
           <TableHead>
             <TableRow>
-              {endpoint === 'apis.api/users_api' ? (
+              {endpoint === apis.users ? (
                 <>
                   <TableCell css={styles.tableHeaderCell}>User ID</TableCell>
                   <TableCell css={styles.tableHeaderCell}>Username</TableCell>
@@ -91,7 +92,7 @@ const UserRolesTable = ({ endpoint }) => {
           <TableBody>
             {data.map((item, index) => (
               <TableRow key={index}>
-                {endpoint === 'apis.api/users_api' ? (
+                {endpoint === apis.users ? (
                   <>
                     <TableCell css={styles.tableCell}>{item.USER_ID}</TableCell>
                     <TableCell css={styles.tableCell}>{item.USER_NAME}</TableCell>

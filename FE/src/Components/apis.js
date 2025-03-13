@@ -1,19 +1,16 @@
+const BASE_URL = 'http://127.0.0.1:5000/';
 
-const url = 'http://127.0.0.1:5000/'
-// const url = ''
 const apis = {
-    "distinctDatasets_api": `${url}distinctDatasets`,
-    "api/role_api": `${url}api/role`,
-    "user_roles_api": `${url}user_roles`,
-    "add_user_api": `${url}add_user`,
-    "api/roles_api": `${url}api/roles`,
-    "api/roles/${roleId}_api": `${url}api/roles/${roleId}`,
-    "api/users/${username}/roles_api": `${url}api/users/${username}/roles`,
-    "api/users_api": `${url}api/users`,
-    "update_role/${USER_NAME}_api": `${url}update_role/${USER_NAME}`,
-    "delete_user/${username}_api": `${url}delete_user/${username}`,
-}
+  distinctDatasets: `${BASE_URL}distinctDatasets`,
+  role: `${BASE_URL}api/role`,
+  userRoles: `${BASE_URL}user_roles`,
+  addUser: `${BASE_URL}add_user`,
+  roles: `${BASE_URL}api/roles`,
+  roleId: `${BASE_URL}api/roles`,
+  userRolesByUsername: (username) => `${BASE_URL}api/users/${username}/roles`,
+  users: `${BASE_URL}api/users`,
+  updateRole: (userName) => `${BASE_URL}update_role/${userName}`,
+  deleteUser: (username) => `${BASE_URL}delete_user/${username}`,
+};
 
-export default apis
-
-
+export default apis;

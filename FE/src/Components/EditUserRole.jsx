@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { TextField, Button, Box, Typography, Paper, Alert, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import apis from './apis'; 
 
 const EditUserRole = () => {
   const [username, setUsername] = useState('');
@@ -17,7 +18,7 @@ const EditUserRole = () => {
     const fetchUserRoles = async () => {
       if (username) {
         try {
-          const response = await axios.get(`apis.api/users/${username}/roles_api`);
+          const response = await axios.get(apis.userRolesByUsername(username));
           setRoles(response.data);
           setIsFetching(true);
           setError(null);
@@ -29,11 +30,10 @@ const EditUserRole = () => {
 
     fetchUserRoles();
   }, [username]);
-
   const handleUpdateRole = async (event) => {
     event.preventDefault();
     try {
-      await axios.put(`apis.api/roles/${roleId}_api`, {
+      await axios.put(`${apis.roleId}/${roleId}`, {
         ROLE_NAME: roleName,
         DATASET_ACCESS: datasetAccess,
       });
@@ -49,7 +49,7 @@ const EditUserRole = () => {
 
   const handleDeleteRole = async () => {
     try {
-      await axios.delete(`apis.api/roles/${roleId}_api`);
+      await axios.delete(`${apis.roleId}/${roleId}`);
       setRoles(roles.filter(role => role.ROLE_ID !== roleId));
       setSuccess(true);
       setError(null);
